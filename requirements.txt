@@ -1,0 +1,14 @@
+selenium
+beautifulsoup4
+pandas
+openpyxl
+requests
+webdriver-manager
+lxml
+google-generativeai
+fpdf
+supabase
+streamlit
+plotly
+python-dotenv
+pytest
