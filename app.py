@@ -67,7 +67,7 @@ def main() -> None:
     with st.expander("🔍 **Start New Scrape**", expanded=True):
         col_city, col_type = st.columns(2)
         with col_city:
-            target_city = st.text_input("Target City", placeholder="e.g. Changanasherry")
+            target_city = st.text_input("Target City", placeholder="e.g. Kochi")
         with col_type:
             target_category = st.text_input("Category (Optional)", placeholder="e.g. Textil Shops. Leave empty for Full Scan.")
             

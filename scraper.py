@@ -1,4 +1,4 @@
-# Scraper Module for Changanasherry Market Agent
+# Scraper Module for Market Agent
 # Handles data extraction via SerpApi and Selenium
 
 import requests
@@ -26,7 +26,7 @@ def extract_shop_type(query: str) -> str:
     Extracts the shop type from a search query string.
 
     Args:
-        query (str): The search query (e.g., "textile shops in changanasherry").
+        query (str): The search query (e.g., "textile shops in Kochi").
 
     Returns:
         str: The extracted shop category (e.g., "Textile Shops").

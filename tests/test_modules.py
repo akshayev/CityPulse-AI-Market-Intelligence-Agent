@@ -15,13 +15,13 @@ from database_manager import DatabaseManager
 
 def test_extract_shop_type_simple():
     """Test standard query extraction."""
-    query = "textile shops in changanasherry"
+    query = "textile shops in Kochi"
     assert extract_shop_type(query) == "Textile Shops"
 
 def test_extract_shop_type_no_location():
     """Test extraction when 'in' keyword is missing."""
-    query = "gyms changanasherry"
-    assert extract_shop_type(query) == "Gyms Changanasherry"
+    query = "gyms Kochi"
+    assert extract_shop_type(query) == "Gyms Kochi"
 
 def test_extract_shop_type_complex_location():
     """Test extraction with multi-word location."""

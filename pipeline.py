@@ -1,4 +1,4 @@
-# Pipeline Controller Module for Changanasherry Market Agent
+# Pipeline Controller Module for Market Agent
 # Orchestrates the Scraping -> Data Engineering -> AI Analysis workflow
 
 import os
@@ -77,7 +77,7 @@ def run_pipeline() -> None:
             
         elif choice == '1':
             # --- FULL CYCLE ---
-            location = input("\n[?] Target Location (e.g. Changanasherry): ").strip()
+            location = input("\n[?] Target Location (e.g. Kochi): ").strip()
             category = input("[?] Target Category (e.g. Gyms). Leave empty for defaults: ").strip()
             
             # Quota Check and Query Construction

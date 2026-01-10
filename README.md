@@ -12,7 +12,7 @@
 ## 📖 Project Overview
 I built this project to solve a real-world problem: **Automating Market Research**. 
 Instead of manually searching Google Maps for hours, this Agent:
-1.  **Scrapes** live data from Changanasherry (or any city).
+1.  **Scrapes** live data from any target city (e.g., Kochi, Bangalore).
 2.  **Cleans & Normalizes** the messy data.
 3.  **Stores** it in a secure Cloud Database (Supabase).
 4.  **Analyzes** it using LLMs (Google Gemini) to find business opportunities.

@@ -1,4 +1,4 @@
-# Database Manager Module for Changanasherry Market Agent
+# Database Manager Module for Market Agent
 # Handles interactions with Supabase (Cloud) and Excel (Local)
 
 import os
