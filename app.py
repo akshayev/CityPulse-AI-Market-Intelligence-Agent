@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from typing import Optional, List
 
 # Local modules
-from market_analyst import analyze_market_data
+
 from scraper import scrape_with_serpapi, scrape_with_selenium
 from database_manager import DatabaseManager
 
@@ -55,11 +55,9 @@ def main() -> None:
         except:
             return os.getenv(key_name)
 
-    default_gemini_key = get_secret("GEMINI_KEY") or ""
     default_serp_key = get_secret("SERPAPI_KEY") or ""
     
     # Allow user to override keys in the UI (good for demos)
-    api_key_gemini = st.sidebar.text_input("Gemini API Key", value=default_gemini_key, type="password")
     api_key_serp = st.sidebar.text_input("SerpApi Key", value=default_serp_key, type="password")
     
     supabase_url = get_secret("SUPABASE_URL")
