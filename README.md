@@ -31,11 +31,13 @@ graph TD
     D -->|Raw Data| E[Data Cleaning]
     E -->|Structured Data| F[(Supabase Cloud DB)]
     E -->|Backup| G[Excel File]
-    F -->|Context| H[AI Analyst Agent]
-    G -->|Context| H
-    H -->|Gemini Pro| I[Market Report]
-    I -->|JSON/PDF| J[Final Output]
-    F -->|Live Data| K[Streamlit Dashboard]
+    D -->|Raw Data| E[Data Cleaning]
+    E -->|Structured Data| F[(Supabase Cloud DB)]
+    E -->|Backup| G[Excel File]
+    F -->|Analysis| H[Statistical Engine]
+    H -->|Insights| I[Market Report]
+    F -->|Geospatial| K[Interactive Map]
+    F -->|Leads| L[Lead Generator]
 ```
 
 ---
@@ -43,9 +45,9 @@ graph TD
 ## 🚀 Key Features
 *   **Dynamic Scraping**: Works for any location (Kochi, Thrissur, etc.) and category.
 *   **Dual-Mode Extraction**: Uses **SerpApi** for speed or **Selenium** for free scraping.
-*   **Hybrid Storage**: Syncs data to **Supabase (PostgreSQL)** while keeping local Excel backups.
-*   **Agentic Analysis**: An AI Agent reads the data and generates a `Market_Report.pdf` identifying gaps in the market.
-*   **Interactive Dashboard**: A Streamlit app to filter and explore the data visually.
+*   **Geospatial Analysis**: Visualizes business density on an interactive map.
+*   **Lead Generation**: Identifies businesses missing a digital footprint (No Website/Phone).
+*   **Instant Intelligence**: Statistically discriminates "Top Rated" vs "High Volume" sectors.
 
 ---
 
@@ -79,8 +81,8 @@ streamlit run app.py
 ## 👨‍💻 Tech Stack
 *   **Core**: Python 3.13, Pandas
 *   **Infrastructure**: Supabase (PostgreSQL), Streamlit Cloud
-*   **AI**: Google Generative AI (Gemini Pro)
-*   **Automation**: Python `fpdf` (PDF Generation), `selenium` (Browser Automation)
+*   **Analysis**: Pandas (Statistical Heuristics)
+*   **Automation**: `selenium` (Browser Automation)
 
 ---
 *Built by [Your Name] as a Portfolio Project in Agentic AI Engineering.*

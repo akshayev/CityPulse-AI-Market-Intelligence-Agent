@@ -90,6 +90,8 @@ def generate_pdf_report(analysis_text: str, raw_data_summary: str) -> str:
     print(f"[+] PDF Report saved to: {filename}")
     return filename
 
+
+
 def analyze_market_data(api_key: str, excel_file: str) -> str:
     """
     Analyzes shop data using Google Gemini AI.
@@ -105,7 +107,22 @@ def analyze_market_data(api_key: str, excel_file: str) -> str:
     
     # 1. Configure Gemini
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    
+    # Try models in order of preference (Based on actual available list)
+    model_options = ['models/gemini-2.0-flash', 'models/gemini-flash-latest']
+    model = None
+    
+    for model_name in model_options:
+        try:
+            m = genai.GenerativeModel(model_name)
+            model = m
+            print(f"[+] Using AI Model: {model_name}")
+            break
+        except:
+            continue
+            
+    if not model:
+        return "AI Error: No available Gemini models found. Check your API Key."
     
     # 2. Load Data
     try:
@@ -140,31 +157,47 @@ def analyze_market_data(api_key: str, excel_file: str) -> str:
     # 4. Construct Prompt
     prompt = f"""
     Act as a Market Intelligence Analyst. 
-    Here is a summary of retail data scraped from the city:
+    Here is a SUMMARY SNAPSHOT of retail data scraped from the city (Note: This is a sample, not a complete census):
     
     {data_context}
     
-    Please provide a comprehensive market analysis report.
+    Please provide a market snapshot analysis.
+    Important: Explicitly mention that this analysis is based on available online data samples.
+    
     Include:
-    1. Executive Summary
-    2. Category Density Analysis (Which businesses are oversaturated?)
-    3. Opportunity Gaps (What businesses are missing?)
-    4. Strategic Recommendations for a new investor.
+    1. Executive Summary (Highlighting that this is based on {total_shops} sample data points)
+    2. Observed Category Trends (Which businesses appear most frequent in this sample?)
+    3. Potential Gaps (What businesses seem underrepresented in the online results?)
+    4. Strategic Recommendations for a new investor (Based on this digital footprint).
     
     Format the output clearly with headers.
     """
         
-    # 5. Generate Response
+    # 5. Generate Response with Retry Logic
+    # We use a retry loop to handle "429 Rate Limit" errors from the Gemini Free Tier.
+    # If a quota error occurs, we wait 30 seconds and try again.
+    
     print("    Sending prompt to Gemini... (This may take a few seconds)")
-    try:
-        response = model.generate_content(prompt)
-        analysis_text = response.text
-        
-        # 6. Generate Outputs (Side Effects)
-        generate_json_output(analysis_text, data_context)
-        generate_pdf_report(analysis_text, data_context)
-        
-        return analysis_text
-        
-    except Exception as e:
-        return f"AI Error: {e}"
+    import time
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            response = model.generate_content(prompt)
+            analysis_text = response.text
+            
+            # 6. Generate Outputs (Side Effects)
+            generate_json_output(analysis_text, data_context)
+            generate_pdf_report(analysis_text, data_context)
+            
+            return analysis_text
+            
+        except Exception as e:
+            if "429" in str(e):
+                print(f"[-] Quota Exceeded. Waiting 30 seconds... (Attempt {attempt+1}/{max_retries})")
+                time.sleep(30)
+                continue
+            else:
+                return f"AI Error: {e}"
+    
+    return "AI Error: Failed after 3 retries due to Rate Limits."

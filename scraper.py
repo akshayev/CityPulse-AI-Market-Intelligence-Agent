@@ -87,6 +87,8 @@ def scrape_with_serpapi(api_key: str, queries: List[str], location_name: str) ->
                         "Phone": place.get("phone", "N/A"),
                         "Website": place.get("website", "N/A"),
                         "Open Status": place.get("open_state", "N/A"),
+                        "latitude": place.get("gps_coordinates", {}).get("latitude"),
+                        "longitude": place.get("gps_coordinates", {}).get("longitude"),
                         "Source": "SerpApi"
                     }
                     shops_data.append(shop)
@@ -122,7 +124,12 @@ def scrape_with_selenium(queries: List[str]) -> List[Dict[str, Any]]:
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
     options.add_argument("--disable-notifications")
-    # options.add_argument("--headless") # Uncomment for headless mode
+    options.add_argument("--no-sandbox") # Crucial for Docker
+    options.add_argument("--disable-dev-shm-usage") # Crucial for Docker
+    
+    # Run headless if in Docker or requested
+    if os.environ.get("HEADLESS_MODE") == "true":
+        options.add_argument("--headless")
     
     driver = None
     try:
