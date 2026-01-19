@@ -84,5 +84,3 @@ streamlit run app.py
 *   **Analysis**: Pandas (Statistical Heuristics)
 *   **Automation**: `selenium` (Browser Automation)
 
----
-*Built by [Your Name] as a Portfolio Project in Agentic AI Engineering.*
