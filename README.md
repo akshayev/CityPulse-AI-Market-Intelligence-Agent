@@ -55,7 +55,8 @@ graph TD
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/yourusername/market-agent.git
+git clone https://github.com/akshayev/CityPulse-AI-Market-Intelligence-Agent.git
+cd CityPulse-AI-Market-Intelligence-Agent
 
 # 2. Install dependencies
 pip install -r requirements.txt
